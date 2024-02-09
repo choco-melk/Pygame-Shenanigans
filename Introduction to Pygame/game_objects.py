@@ -2,6 +2,7 @@ import pygame
 import random
 pygame.init()
 
+# Constants
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
@@ -10,9 +11,11 @@ HEIGHT = 500
 DISPLAYWINDOW = pygame.display.set_mode((WIDTH,HEIGHT))
 DISPLAYWINDOW_LEFT, DISPLAYWINDOW_RIGHT, DISPLAYWINDOW_TOP, DISPLAYWINDOW_BOTTOM = 0, 1000, 0, 500
 
+# Game Settings
 pygame.display.set_caption('Hello Pygame')
 clock = pygame.time.Clock()
 
+# Declaring Game Objects
 class Player:
     def __init__(self):
         self.WIDTH = 20
@@ -20,17 +23,11 @@ class Player:
         self.bodyLength = 3
         self.headPositionX, self.headPositionY = 500, 260
         self.bodyPositions = [(500, 260), (500, 260), (500, 260)]
-        self.bodyPositionsX = [500, 500, 500]
-        self.bodyPositionsY = [260, 260, 260]
         self.velocityX, self.velocityY = 0, 0           
         self.direction = 'Rest'
         self.change_to = 'Rest'
     
     def move(self): 
-        self.bodyPositionsX.insert(0, self.headPositionX)
-        self.bodyPositionsX.pop()
-        self.bodyPositionsY.insert(0, self.headPositionY)
-        self.bodyPositionsY.pop()
         self.bodyPositions.insert(0, (self.headPositionX, self.headPositionY))  
         self.bodyPositions.pop()
 
@@ -59,12 +56,11 @@ class Food:
 
     def randomize_position(self):
         self.possiblePositions = [(positionX, positionY) for positionX in range(0,1000,20) for positionY in range(0,500,20) if (positionX, positionY) not in player.bodyPositions]
-    
-        self.randomChoice= random.choice(self.possiblePositions)
+        self.randomChoice = random.choice(self.possiblePositions) 
         self.positionX = self.randomChoice[0]
         self.positionY = self.randomChoice[1]            
 
-        
+# Assigning Game Objects        
 player = Player()
 food = Food()
 
